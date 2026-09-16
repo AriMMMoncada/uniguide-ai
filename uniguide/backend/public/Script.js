@@ -1,16 +1,6 @@
 /* =====================================================================
    UniGuide AI - Cliente web
    Ingeniería de Software II - UPSLP
-
-   Cambios respecto a la versión inicial:
-     - Se conecta al backend real (POST /api/preguntar) en vez de usar
-       respuestas quemadas en el código.
-     - Se elimina la vulnerabilidad de XSS: el texto del usuario y del bot
-       ya no se inserta con innerHTML sin escapar.
-     - Indicador "Escribiendo..."            -> RS 1.4
-     - Límite de 500 caracteres con contador -> RS 1.2
-     - Renderizado del mapa                  -> RS 3.5
-     - Historial temporal de la sesión       -> RF3 Módulo 1
    ===================================================================== */
 
 'use strict';
@@ -21,11 +11,24 @@ const input = document.getElementById('questionInput');
 const button = document.getElementById('sendButton');
 const chatMessages = document.getElementById('chatMessages');
 const contador = document.getElementById('charCounter');
+const clockEl = document.getElementById('statusClock');
+const statusDot = document.getElementById('statusDot');
+const statusText = document.getElementById('statusText');
+const consoleSub = document.getElementById('consoleSub');
 
 /* ------------------------------------------------------------------ */
-/* Sesión: identifica el chat actual para el historial del backend.     */
-/* Se guarda en sessionStorage, así que se borra al cerrar la pestaña   */
-/* (el requerimiento pide historial TEMPORAL, no persistente).          */
+/* Reloj del encabezado — refuerza la idea de "consola en vivo" y de   */
+/* paso confirma visualmente que el JS cargó y la página responde.     */
+/* ------------------------------------------------------------------ */
+function actualizarReloj() {
+  if (!clockEl) return;
+  clockEl.textContent = new Date().toLocaleTimeString('es-MX', { hour12: false });
+}
+actualizarReloj();
+setInterval(actualizarReloj, 1000);
+
+/* ------------------------------------------------------------------ */
+/* Sesión temporal (se borra al cerrar la pestaña)                     */
 /* ------------------------------------------------------------------ */
 function obtenerTokenSesion() {
   let token = sessionStorage.getItem('uniguide_sesion');
@@ -37,40 +40,36 @@ function obtenerTokenSesion() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Seguridad: escapa cualquier texto antes de mostrarlo.                */
-/* Sin esto, una pregunta como <img src=x onerror=alert(1)> ejecuta     */
-/* código en el navegador de quien use la página.                       */
+/* Seguridad: nunca insertar texto del usuario o del modelo como HTML  */
 /* ------------------------------------------------------------------ */
-function escapar(texto) {
-  const div = document.createElement('div');
-  div.textContent = texto;
-  return div.innerHTML;
-}
-
 function horaActual() {
   return new Date().toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
 }
 
-/* ------------------------------------------------------------------ */
-/* Construcción de burbujas                                             */
-/* ------------------------------------------------------------------ */
+function iconoBot() {
+  return '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8">' +
+    '<circle cx="12" cy="12" r="3"></circle><path d="M12 2v4M12 18v4M2 12h4M18 12h4"></path></svg>';
+}
+
 function crearBurbuja({ texto, esUsuario, mapa, fuentes }) {
   const mensaje = document.createElement('div');
   mensaje.className = 'message ' + (esUsuario ? 'user-message' : 'bot-message');
 
   const avatar = document.createElement('div');
-  avatar.className = 'bot-avatar';
-  avatar.textContent = esUsuario ? '👤' : '🤖';
+  avatar.className = 'msg-avatar ' + (esUsuario ? 'user-avatar' : 'bot-avatar');
+  if (esUsuario) {
+    avatar.textContent = 'TÚ';
+  } else {
+    avatar.innerHTML = iconoBot();
+  }
 
   const contenedor = document.createElement('div');
 
   const burbuja = document.createElement('div');
   burbuja.className = 'message-bubble';
-  burbuja.textContent = texto;   // textContent = inmune a inyección de HTML
-
+  burbuja.textContent = texto;
   contenedor.appendChild(burbuja);
 
-  // RS 3.5: si el backend devolvió coordenadas, se muestra el mapa.
   if (mapa && mapa.embed) {
     const caja = document.createElement('div');
     caja.className = 'map-box';
@@ -93,11 +92,10 @@ function crearBurbuja({ texto, esUsuario, mapa, fuentes }) {
     contenedor.appendChild(caja);
   }
 
-  // Trazabilidad del grounding: de dónde salió la respuesta.
   if (fuentes && fuentes.length) {
     const pie = document.createElement('div');
     pie.className = 'fuentes';
-    pie.textContent = 'Fuente: ' + fuentes.map((f) => f.titulo).join(' · ');
+    pie.textContent = 'FUENTE · ' + fuentes.map((f) => f.titulo).join(' · ');
     contenedor.appendChild(pie);
   }
 
@@ -120,15 +118,13 @@ function bajarChat() {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-/* ------------------------------------------------------------------ */
-/* RS 1.4: indicador "Escribiendo..."                                   */
-/* ------------------------------------------------------------------ */
+/* Indicador "Escribiendo..." */
 function mostrarEscribiendo() {
   const el = document.createElement('div');
   el.className = 'message bot-message';
   el.id = 'typingIndicator';
   el.innerHTML =
-    '<div class="bot-avatar">🤖</div>' +
+    '<div class="msg-avatar bot-avatar">' + iconoBot() + '</div>' +
     '<div><div class="message-bubble typing">' +
     '<span></span><span></span><span></span>' +
     '</div></div>';
@@ -179,14 +175,8 @@ async function enviarPregunta() {
       fuentes: datos.fuentes,
     });
 
-    // Útil durante la demo: deja ver intención, motor y tiempo de respuesta.
     if (datos.ms !== undefined) {
-      console.log('[UniGuide]', {
-        intencion: datos.intencion,
-        motor: datos.motor,
-        ms: datos.ms,
-        tokens: datos.tokens,
-      });
+      console.log('[UniGuide]', { intencion: datos.intencion, motor: datos.motor, ms: datos.ms, tokens: datos.tokens });
     }
   } catch (err) {
     ocultarEscribiendo();
@@ -202,9 +192,7 @@ async function enviarPregunta() {
   }
 }
 
-/* ------------------------------------------------------------------ */
-/* RS 1.2: contador de caracteres                                       */
-/* ------------------------------------------------------------------ */
+/* Contador de caracteres */
 function actualizarContador() {
   if (!contador) return;
   const usados = input.value.length;
@@ -212,20 +200,18 @@ function actualizarContador() {
   contador.classList.toggle('limite', usados >= LIMITE_CARACTERES);
 }
 
-/* ------------------------------------------------------------------ */
-/* Limpiar chat                                                         */
-/* ------------------------------------------------------------------ */
+/* Limpiar chat */
 function limpiarChat() {
   chatMessages.innerHTML = '';
   sessionStorage.removeItem('uniguide_sesion');
   agregarMensaje({
-    texto: '¡Hola! Soy UniGuide AI. Puedo ayudarte a encontrar información sobre la universidad: ubicaciones, trámites, horarios y servicios.',
+    texto: 'Hola, soy UniGuide AI. Puedo ayudarte a encontrar información sobre la universidad: ubicaciones, trámites, horarios y servicios.',
     esUsuario: false,
   });
 }
 
 /* ------------------------------------------------------------------ */
-/* Accesos rápidos del menú lateral y las tarjetas                      */
+/* Accesos rápidos (sidebar + directorio del hero)                      */
 /* ------------------------------------------------------------------ */
 const PREGUNTAS_RAPIDAS = {
   ubicaciones: '¿Dónde está la biblioteca?',
@@ -233,17 +219,27 @@ const PREGUNTAS_RAPIDAS = {
   horarios: '¿Cuál es el horario de la biblioteca?',
   servicios: '¿Qué servicios ofrece la universidad?',
   preguntas: '¿Qué carreras ofrece la UPSLP?',
-  ayuda: '¿Dónde está Servicios Escolares?',
 };
 
+function marcarActivo(categoria) {
+  document.querySelectorAll('.menu-item').forEach((el) => {
+    el.classList.toggle('active', el.dataset.categoria === categoria);
+  });
+}
+
 function mostrarCategoria(categoria) {
+  marcarActivo(categoria);
+
+  if (categoria === 'inicio') {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    input.focus();
+    return;
+  }
+
   input.value = PREGUNTAS_RAPIDAS[categoria] || '';
   actualizarContador();
+  document.querySelector('.chat-console')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   input.focus();
-
-  document.querySelectorAll('.menu-item').forEach((el) => el.classList.remove('active'));
-  const boton = document.querySelector('[data-categoria="' + categoria + '"]');
-  if (boton) boton.classList.add('active');
 }
 
 /* ------------------------------------------------------------------ */
@@ -266,11 +262,24 @@ document.querySelectorAll('[data-categoria]').forEach((el) => {
   el.addEventListener('click', () => mostrarCategoria(el.dataset.categoria));
 });
 
-// Aviso temprano si el backend no está levantado (ayuda mucho en la demo).
-fetch('/api/salud')
-  .then((r) => r.json())
-  .then((d) => console.log('[UniGuide] salud:', d))
-  .catch(() => console.warn('[UniGuide] El backend no responde. ¿Corriste "npm start"?'));
-
 const botonLimpiar = document.getElementById('clearButton');
 if (botonLimpiar) botonLimpiar.addEventListener('click', limpiarChat);
+
+/* ------------------------------------------------------------------ */
+/* Estado del sistema — verifica el backend al cargar y refleja el      */
+/* resultado en el indicador de la barra superior.                      */
+/* ------------------------------------------------------------------ */
+fetch('/api/salud')
+  .then((r) => r.json())
+  .then((d) => {
+    console.log('[UniGuide] salud:', d);
+    if (statusDot && statusText) {
+      const conectado = d.estado === 'ok';
+      statusDot.classList.toggle('ok', conectado);
+      statusText.textContent = conectado ? 'sistema conectado' : 'base de datos sin conexión';
+    }
+  })
+  .catch(() => {
+    if (statusText) statusText.textContent = 'sin conexión con el servidor';
+    console.warn('[UniGuide] El backend no responde. ¿Corriste "npm start"?');
+  });
