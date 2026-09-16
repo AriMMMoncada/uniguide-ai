@@ -1,0 +1,1297 @@
+/* =========================================
+   CONFIGURACIÓN GENERAL
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #f5f7fb;
+
+    color: #172f5f;
+
+    min-height: 100vh;
+}
+
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.sidebar {
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    width: 255px;
+
+    height: 100vh;
+
+    background: #102f63;
+
+    color: white;
+
+    display: flex;
+
+    flex-direction: column;
+
+    z-index: 10;
+}
+
+
+/* LOGO */
+
+.sidebar-logo {
+
+    background: white;
+
+    height: 130px;
+
+    padding: 22px 30px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+
+.logo-universidad {
+
+    color: #183b70;
+
+    font-size: 18px;
+
+    font-weight: bold;
+}
+
+
+.logo-politecnica {
+
+    color: #183b70;
+
+    font-size: 22px;
+
+    font-weight: bold;
+}
+
+
+.logo-slp {
+
+    color: #183b70;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    border-top: 2px solid #f58220;
+
+    padding-top: 3px;
+}
+
+
+/* MENU */
+
+.menu {
+
+    margin-top: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.menu-item {
+
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    padding: 17px 30px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    transition: 0.2s;
+}
+
+
+.menu-item:hover {
+
+    background: rgba(255, 255, 255, 0.1);
+}
+
+
+.menu-item.active {
+
+    background: #f58220;
+
+}
+
+
+.menu-icon {
+
+    width: 25px;
+
+    text-align: center;
+
+    font-size: 22px;
+}
+
+
+/* PARTE INFERIOR */
+
+.sidebar-bottom {
+
+    margin-top: auto;
+
+    padding: 25px 30px;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+
+.decoracion {
+
+    height: 70px;
+
+    margin-bottom: 15px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            transparent 40%,
+            #f58220 41%,
+            #f58220 55%,
+            transparent 56%
+        );
+}
+
+
+
+/* =========================================
+   CONTENIDO PRINCIPAL
+========================================= */
+
+.main-content {
+
+    margin-left: 255px;
+
+    min-height: 100vh;
+
+    padding-bottom: 40px;
+}
+
+
+
+/* =========================================
+   TOPBAR
+========================================= */
+
+.topbar {
+
+    height: 130px;
+
+    background: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 45px;
+
+    border-bottom: 1px solid #e4e6eb;
+}
+
+
+.brand h1 {
+
+    font-size: 40px;
+
+    color: #163568;
+
+    letter-spacing: -1px;
+}
+
+
+.brand h1 span {
+
+    color: #f58220;
+}
+
+
+.brand h1 b {
+
+    color: #163568;
+}
+
+
+.brand p {
+
+    color: #737b8c;
+
+    margin-top: 4px;
+
+    font-size: 16px;
+}
+
+
+.user-area {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    color: #172f5f;
+
+    font-weight: bold;
+}
+
+
+.notification {
+
+    font-size: 23px;
+
+    margin-right: 15px;
+}
+
+
+.user-avatar {
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: #17396f;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+/* =========================================
+   CONTENIDO
+========================================= */
+
+.main-content > section {
+
+    margin-left: 30px;
+
+    margin-right: 30px;
+}
+
+
+
+/* =========================================
+   WELCOME
+========================================= */
+
+.welcome-card {
+
+    margin-top: 30px;
+
+    min-height: 230px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 30px 55px;
+}
+
+
+.welcome-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    right: -40px;
+
+    bottom: -70px;
+
+    width: 400px;
+
+    height: 150px;
+
+    background: #17396f;
+
+    transform: rotate(-8deg);
+}
+
+
+.welcome-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    right: -20px;
+
+    bottom: -80px;
+
+    width: 350px;
+
+    height: 100px;
+
+    background: #f58220;
+
+    transform: rotate(-8deg);
+}
+
+
+
+/* ROBOT */
+
+.robot {
+
+    width: 190px;
+
+    height: 180px;
+
+    position: relative;
+
+    margin-right: 35px;
+}
+
+
+.robot-head {
+
+    width: 110px;
+
+    height: 75px;
+
+    background: #17396f;
+
+    border-radius: 25px;
+
+    position: absolute;
+
+    top: 35px;
+
+    left: 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 22px;
+
+    border: 6px solid #f58220;
+}
+
+
+.robot-eye {
+
+    width: 12px;
+
+    height: 12px;
+
+    background: white;
+
+    border-radius: 50%;
+}
+
+
+.robot-mouth {
+
+    position: absolute;
+
+    width: 30px;
+
+    height: 10px;
+
+    border-bottom: 4px solid white;
+
+    border-radius: 50%;
+
+    bottom: 12px;
+}
+
+
+.robot-body {
+
+    position: absolute;
+
+    bottom: 0;
+
+    left: 45px;
+
+    width: 90px;
+
+    height: 70px;
+
+    border-radius: 35px 35px 10px 10px;
+
+    background: #e9edf5;
+
+    color: #17396f;
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+.antenna {
+
+    position: absolute;
+
+    width: 5px;
+
+    height: 35px;
+
+    background: #f58220;
+
+    left: 90px;
+
+    top: 0;
+}
+
+
+.antenna::after {
+
+    content: "";
+
+    width: 15px;
+
+    height: 15px;
+
+    border-radius: 50%;
+
+    background: #f58220;
+
+    position: absolute;
+
+    left: -5px;
+
+    top: -5px;
+}
+
+
+
+/* TEXTO */
+
+.welcome-text {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 550px;
+}
+
+
+.welcome-text h2 {
+
+    font-size: 32px;
+
+    margin-bottom: 5px;
+}
+
+
+.welcome-text h3 {
+
+    font-size: 28px;
+
+    margin-bottom: 15px;
+}
+
+
+.welcome-text p {
+
+    color: #687184;
+
+    font-size: 17px;
+
+    line-height: 1.6;
+}
+
+
+.welcome-logo {
+
+    position: absolute;
+
+    right: 50px;
+
+    top: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    color: #17396f;
+
+    font-size: 17px;
+
+    z-index: 3;
+}
+
+
+.welcome-logo span {
+
+    border-top: 2px solid #f58220;
+
+    padding-top: 3px;
+}
+
+
+
+/* =========================================
+   OPCIONES
+========================================= */
+
+.quick-options {
+
+    margin-top: 28px;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 20px;
+}
+
+
+.quick-card {
+
+    border: none;
+
+    background: white;
+
+    border-radius: 17px;
+
+    padding: 25px 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+
+    transition: 0.2s;
+
+    position: relative;
+}
+
+
+.quick-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 8px 22px rgba(0,0,0,0.1);
+}
+
+
+.quick-icon {
+
+    width: 62px;
+
+    height: 62px;
+
+    min-width: 62px;
+
+    background: #fff0e5;
+
+    color: #f58220;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 28px;
+}
+
+
+.quick-card h3 {
+
+    font-size: 18px;
+
+    margin-bottom: 7px;
+}
+
+
+.quick-card p {
+
+    font-size: 13px;
+
+    line-height: 1.4;
+
+    color: #6d7482;
+}
+
+
+.arrow {
+
+    position: absolute;
+
+    right: 15px;
+
+    bottom: 12px;
+
+    color: #f58220;
+
+    font-size: 30px;
+}
+
+
+
+/* =========================================
+   CHAT
+========================================= */
+
+.chat-container {
+
+    margin-top: 28px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
+
+    padding: 25px;
+}
+
+
+.chat-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+
+.chat-header h2 {
+
+    font-size: 21px;
+
+    color: #17396f;
+}
+
+
+.chat-header h2 span {
+
+    color: #f58220;
+}
+
+
+.clear-button {
+
+    border: 1px solid #ccd2df;
+
+    background: white;
+
+    color: #17396f;
+
+    padding: 9px 15px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+}
+
+
+.clear-button:hover {
+
+    background: #f5f7fb;
+}
+
+
+
+/* MENSAJES */
+
+.chat-messages {
+
+    min-height: 220px;
+
+    max-height: 380px;
+
+    overflow-y: auto;
+
+    padding: 10px 5px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+
+.message {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+}
+
+
+.bot-avatar {
+
+    width: 42px;
+
+    height: 42px;
+
+    min-width: 42px;
+
+    background: #17396f;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 21px;
+}
+
+
+.message-bubble {
+
+    background: #f1f3f7;
+
+    padding: 15px 18px;
+
+    border-radius: 15px;
+
+    color: #172f5f;
+
+    line-height: 1.5;
+
+    max-width: 600px;
+}
+
+
+.message-time {
+
+    font-size: 11px;
+
+    color: #9299a5;
+
+    display: block;
+
+    margin-top: 5px;
+}
+
+
+/* MENSAJE DEL USUARIO */
+
+.user-message {
+
+    justify-content: flex-end;
+
+    flex-direction: row-reverse;
+}
+
+
+.user-message .message-bubble {
+
+    background: #e7efff;
+
+    border-bottom-right-radius: 4px;
+}
+
+
+.user-message .bot-avatar {
+
+    background: #f58220;
+}
+
+
+
+/* =========================================
+   INPUT
+========================================= */
+
+.input-area {
+
+    display: flex;
+
+    border: 2px solid #f58220;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    margin-top: 15px;
+}
+
+
+#questionInput {
+
+    flex: 1;
+
+    border: none;
+
+    outline: none;
+
+    padding: 17px;
+
+    font-size: 15px;
+
+    color: #172f5f;
+}
+
+
+#questionInput::placeholder {
+
+    color: #9299a5;
+}
+
+
+.send-button {
+
+    width: 70px;
+
+    border: none;
+
+    background: #f58220;
+
+    color: white;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.send-button:hover {
+
+    background: #dd6d0d;
+}
+
+
+.privacy-text {
+
+    text-align: center;
+
+    color: #9aa1ad;
+
+    font-size: 11px;
+
+    margin-top: 12px;
+}
+
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+
+    .quick-options {
+
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 800px) {
+
+    .sidebar {
+
+        width: 75px;
+
+    }
+
+
+    .sidebar-logo {
+
+        padding: 15px 10px;
+
+        height: 90px;
+
+        overflow: hidden;
+    }
+
+
+    .logo-universidad,
+    .logo-politecnica,
+    .logo-slp {
+
+        display: none;
+
+    }
+
+
+    .menu-item {
+
+        justify-content: center;
+
+        padding: 18px 5px;
+
+    }
+
+
+    .menu-item span:last-child {
+
+        display: none;
+
+    }
+
+
+    .sidebar-bottom {
+
+        display: none;
+
+    }
+
+
+    .main-content {
+
+        margin-left: 75px;
+
+    }
+
+
+    .topbar {
+
+        padding: 0 20px;
+
+    }
+
+
+    .welcome-card {
+
+        padding: 25px;
+
+    }
+
+
+    .robot {
+
+        display: none;
+
+    }
+
+
+    .welcome-logo {
+
+        display: none;
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .quick-options {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .main-content > section {
+
+        margin-left: 15px;
+
+        margin-right: 15px;
+
+    }
+
+
+    .topbar {
+
+        height: 100px;
+
+    }
+
+
+    .brand h1 {
+
+        font-size: 28px;
+
+    }
+
+
+    .hello {
+
+        display: none;
+
+    }
+
+
+    .welcome-text h2 {
+
+        font-size: 25px;
+
+    }
+
+
+    .welcome-text h3 {
+
+        font-size: 21px;
+
+    }
+
+
+    .welcome-text p {
+
+        font-size: 14px;
+
+    }
+
+}
+
+/* =========================================
+   AGREGADOS v2 — indicador de escritura,
+   mapas, fuentes y contador de caracteres
+========================================= */
+
+/* --- RS 1.4: indicador "Escribiendo..." --- */
+
+.message-bubble.typing {
+
+    display: flex;
+
+    gap: 6px;
+
+    align-items: center;
+
+    padding: 18px;
+}
+
+
+.message-bubble.typing span {
+
+    width: 8px;
+
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #9299a5;
+
+    animation: rebote 1.2s infinite ease-in-out;
+}
+
+
+.message-bubble.typing span:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+
+.message-bubble.typing span:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+
+@keyframes rebote {
+
+    0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.45;
+    }
+
+    30% {
+        transform: translateY(-6px);
+        opacity: 1;
+    }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .message-bubble.typing span {
+        animation: none;
+    }
+
+}
+
+
+/* --- RS 3.5: mapa incrustado --- */
+
+.map-box {
+
+    margin-top: 10px;
+
+    max-width: 600px;
+
+    border: 1px solid #dde2ec;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+}
+
+
+.map-box iframe {
+
+    display: block;
+
+    width: 100%;
+
+    height: 220px;
+
+    border: 0;
+}
+
+
+.map-link {
+
+    display: block;
+
+    padding: 11px 14px;
+
+    background: #fff6ef;
+
+    color: #c85f06;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+
+.map-link:hover {
+
+    background: #ffe9d8;
+}
+
+
+/* --- Trazabilidad del grounding --- */
+
+.fuentes {
+
+    margin-top: 7px;
+
+    font-size: 11px;
+
+    color: #8a91a0;
+
+    font-style: italic;
+
+    max-width: 600px;
+}
+
+
+/* --- RS 1.2: contador de caracteres --- */
+
+.char-counter {
+
+    text-align: right;
+
+    font-size: 11px;
+
+    color: #9aa1ad;
+
+    margin-top: 6px;
+
+    padding-right: 4px;
+}
+
+
+.char-counter.limite {
+
+    color: #d13a2c;
+
+    font-weight: bold;
+}
+
+
+/* --- Estado deshabilitado mientras espera respuesta --- */
+
+#questionInput:disabled {
+
+    background: #f7f8fb;
+
+    cursor: wait;
+}
+
+
+.send-button:disabled {
+
+    opacity: 0.55;
+
+    cursor: wait;
+}
+
+
+@media (max-width: 600px) {
+
+    .map-box iframe {
+        height: 170px;
+    }
+
+}

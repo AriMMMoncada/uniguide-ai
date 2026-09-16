@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UniGuide AI | UPSLP</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         BARRA LATERAL
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="logo-universidad">
+                UNIVERSIDAD
+            </div>
+
+            <div class="logo-politecnica">
+                POLITÉCNICA
+            </div>
+
+            <div class="logo-slp">
+                DE SAN LUIS POTOSÍ
+            </div>
+
+        </div>
+
+
+        <nav class="menu">
+
+            <button class="menu-item active">
+
+                <span class="menu-icon">⌂</span>
+
+                <span>Inicio</span>
+
+            </button>
+
+
+            <button class="menu-item" data-categoria="ubicaciones">
+
+                <span class="menu-icon">📍</span>
+
+                <span>Lugares</span>
+
+            </button>
+
+
+            <button class="menu-item" data-categoria="tramites">
+
+                <span class="menu-icon">📄</span>
+
+                <span>Trámites</span>
+
+            </button>
+
+
+            <button class="menu-item" data-categoria="horarios">
+
+                <span class="menu-icon">◷</span>
+
+                <span>Horarios</span>
+
+            </button>
+
+
+            <button class="menu-item" data-categoria="servicios">
+
+                <span class="menu-icon">▣</span>
+
+                <span>Servicios</span>
+
+            </button>
+
+
+            <button class="menu-item" data-categoria="preguntas">
+
+                <span class="menu-icon">?</span>
+
+                <span>Preguntas frecuentes</span>
+
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="decoracion"></div>
+
+            <p>© 2026 UPSLP</p>
+
+            <p>Todos los derechos reservados.</p>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         CONTENIDO PRINCIPAL
+    ========================== -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div class="brand">
+
+                <h1>
+                    Uni<span>Guide</span> <b>AI</b>
+                </h1>
+
+                <p>
+                    Tu asistente universitario
+                </p>
+
+            </div>
+
+
+            <div class="user-area">
+
+                <div class="user-avatar">
+                    👤
+                </div>
+
+                <span class="hello">
+                    ¡Hola, usuario!
+                </span>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================
+             BIENVENIDA
+        ========================== -->
+
+        <section class="welcome-card">
+
+
+            <div class="robot">
+
+                <div class="antenna"></div>
+
+                <div class="robot-head">
+
+                    <div class="robot-eye"></div>
+
+                    <div class="robot-eye"></div>
+
+                    <div class="robot-mouth"></div>
+
+                </div>
+
+                <div class="robot-body">
+                    AI
+                </div>
+
+            </div>
+
+
+
+            <div class="welcome-text">
+
+                <h2>
+                    ¡Hola! 
+                </h2>
+
+                <h3>
+                    ¿En qué puedo ayudarte hoy?
+                </h3>
+
+                <p>
+                    Pregúntame sobre ubicaciones, trámites,
+                    horarios, servicios y más información
+                    de la universidad.
+                </p>
+
+            </div>
+
+            <div class="welcome-logo">
+
+                <strong>UNIVERSIDAD</strong>
+
+                <strong>POLITÉCNICA</strong>
+
+                <span>DE SAN LUIS POTOSÍ</span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             OPCIONES RÁPIDAS
+        ========================== -->
+
+        <section class="quick-options">
+
+
+            <button
+                class="quick-card"
+                data-categoria="ubicaciones"
+            >
+
+                <div class="quick-icon">
+                    📍
+                </div>
+
+                <div>
+
+                    <h3>
+                        Lugares
+                    </h3>
+
+                    <p>
+                        Encuentra edificios,
+                        laboratorios y espacios.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    ›
+                </span>
+
+            </button>
+
+            <button
+                class="quick-card"
+                data-categoria="tramites"
+            >
+
+                <div class="quick-icon">
+                    📄
+                </div>
+
+                <div>
+
+                    <h3>
+                        Trámites
+                    </h3>
+
+                    <p>
+                        Conoce los trámites y
+                        requisitos necesarios.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+
+            <button
+                class="quick-card"
+                data-categoria="horarios"
+            >
+
+                <div class="quick-icon">
+                    🕐
+                </div>
+
+                <div>
+
+                    <h3>
+                        Horarios
+                    </h3>
+
+                    <p>
+                        Consulta horarios de
+                        servicios y atención.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+
+            <button
+                class="quick-card"
+                data-categoria="ayuda"
+            >
+
+                <div class="quick-icon">
+                    ?
+                </div>
+
+                <div>
+
+                    <h3>
+                        Ayuda
+                    </h3>
+
+                    <p>
+                        Resuelve tus dudas
+                        frecuentes.
+                    </p>
+
+                </div>
+
+                <span class="arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+        </section>
+
+
+
+        <!-- =========================
+             CHAT
+        ========================== -->
+
+        <section class="chat-container">
+
+
+            <div class="chat-header">
+
+                <h2>
+                    Chat con
+                    <span>UniGuide</span> AI
+                </h2>
+
+
+                <button
+                    class="clear-button"
+                    id="clearButton"
+                >
+
+                    Limpiar chat 🗑
+
+                </button>
+
+            </div>
+
+
+
+            <!-- MENSAJES -->
+
+            <div
+                id="chatMessages"
+                class="chat-messages"
+                aria-live="polite"
+            >
+
+
+                <!-- MENSAJE DEL SISTEMA -->
+
+                <div class="message bot-message">
+
+                    <div class="bot-avatar">
+                        🤖
+                    </div>
+
+                    <div>
+
+                        <div class="message-bubble">
+
+                            ¡Hola! Soy UniGuide AI 
+
+                            <br><br>
+
+                            Puedo ayudarte a encontrar
+                            información sobre la universidad.
+
+                        </div>
+
+                        <span class="message-time">
+                            Ahora
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- INPUT -->
+
+            <div class="input-area">
+
+
+                <input
+                    type="text"
+                    id="questionInput"
+                    placeholder="Escribe tu pregunta aquí..."
+                    autocomplete="off"
+                >
+
+
+                <button
+                    id="sendButton"
+                    class="send-button"
+                    aria-label="Enviar pregunta"
+                >
+
+                    ➤
+
+                </button>
+
+
+            </div>
+
+            <div id="charCounter" class="char-counter">0 / 500</div>
+
+
+            <p class="privacy-text">
+
+                UniGuide AI utiliza información de la
+                base de conocimiento institucional.
+
+            </p>
+
+
+        </section>
+
+
+    </main>
+
+    <!-- JAVASCRIPT -->
+
+    <script src="Script.js"></script>
+
+</body>
+
+</html>

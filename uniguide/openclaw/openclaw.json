@@ -1,0 +1,44 @@
+{
+  "_comentario": "Configuración de OpenClaw para UniGuide AI (UPSLP). Copiar a ~/.openclaw/openclaw.json y reemplazar los valores marcados con <>.",
+
+  "agents": {
+    "uniguide": {
+      "name": "UniGuide AI",
+      "description": "Asistente de orientación universitaria de la UPSLP. Responde únicamente con información de la base de conocimiento institucional.",
+      "instructions": "./skills/uniguide/SKILL.md",
+      "model": "google/gemini-2.0-flash",
+      "maxTokens": 300,
+      "temperature": 0.1
+    }
+  },
+
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "botToken": "<TOKEN_DE_BOTFATHER>",
+      "agent": "uniguide",
+      "adminIds": []
+    }
+  },
+
+  "tools": {
+    "_comentario": "Principio de mínimo privilegio: UniGuide solo necesita HTTP y mensajería. Todo lo demás queda apagado.",
+    "http": { "enabled": true, "allowedHosts": ["<HOST_DEL_BACKEND>"] },
+    "message": { "enabled": true },
+    "exec": { "enabled": false },
+    "browser": { "enabled": false },
+    "file": { "enabled": false },
+    "web_search": { "enabled": false }
+  },
+
+  "gateway": {
+    "bind": "127.0.0.1",
+    "port": 18789,
+    "_comentario": "bind en 127.0.0.1 a propósito: el gateway NO debe ser accesible desde internet."
+  },
+
+  "env": {
+    "UNIGUIDE_API_URL": "<https://su-backend.onrender.com>",
+    "UNIGUIDE_API_KEY": "<LA_MISMA_AGENT_API_KEY_DEL_ENV>"
+  }
+}
