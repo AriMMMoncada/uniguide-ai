@@ -10,7 +10,7 @@ class AgenteGemini extends AgenteIA {
   constructor() {
     super();
     this.apiKey = process.env.GEMINI_API_KEY;
-    this.modelo = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
+    this.modelo = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
     this.maxTokens = Number(process.env.IA_MAX_TOKENS || 300);
   }
 
