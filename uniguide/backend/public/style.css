@@ -264,6 +264,32 @@ button { font-family: inherit; }
   pointer-events: none;
 }
 
+/* Barrido de radar continuo y sutil — da sensación de "sistema en
+   vivo" todo el tiempo, no solo al cargar. Muy baja opacidad para
+   que nunca compita con el texto. */
+.locator-sweep {
+  position: absolute;
+  inset: -20%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(23,184,144,0.10) 18deg,
+    transparent 40deg,
+    transparent 360deg
+  );
+  animation: sweep-rotate 9s linear infinite;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+@keyframes sweep-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .locator-sweep { animation: none; display: none; }
+}
+
 .locator-panel::before,
 .locator-panel::after {
   content: "";
@@ -378,7 +404,7 @@ button { font-family: inherit; }
   padding: 14px 14px 16px;
   text-align: left;
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -387,6 +413,18 @@ button { font-family: inherit; }
 .dir-entry:hover {
   background: rgba(245,129,31,0.10);
   border-color: rgba(245,129,31,0.4);
+  transform: translateY(-3px);
+}
+
+.dir-entry:active { transform: translateY(-1px); }
+
+.dir-entry:hover .dir-tag {
+  background: var(--orange);
+  color: var(--navy);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dir-entry:hover { transform: none; }
 }
 
 .dir-tag {
@@ -395,6 +433,10 @@ button { font-family: inherit; }
   font-weight: 600;
   color: var(--orange);
   letter-spacing: 0.03em;
+  border-radius: 3px;
+  padding: 1px 4px;
+  align-self: flex-start;
+  transition: background 0.18s ease, color 0.18s ease;
 }
 
 .dir-label {
@@ -497,6 +539,16 @@ button { font-family: inherit; }
   align-items: flex-start;
   gap: 12px;
   max-width: 100%;
+  animation: msg-in 0.28s ease both;
+}
+
+@keyframes msg-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .message { animation: none; }
 }
 
 .msg-avatar {
@@ -591,6 +643,32 @@ button { font-family: inherit; }
   border: 1px solid var(--line);
   border-radius: 4px;
   overflow: hidden;
+  animation: map-found 1.1s ease-out;
+}
+
+@keyframes map-found {
+  0%   { box-shadow: 0 0 0 0 rgba(23,184,144,0.55); }
+  70%  { box-shadow: 0 0 0 9px rgba(23,184,144,0); }
+  100% { box-shadow: 0 0 0 0 rgba(23,184,144,0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-box { animation: none; }
+}
+
+/* Cursor parpadeante mientras se "escribe" la respuesta del bot */
+.escribiendo-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--locate);
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  animation: cursor-blink 0.8s step-end infinite;
+}
+
+@keyframes cursor-blink {
+  50% { opacity: 0; }
 }
 
 .map-box iframe {
