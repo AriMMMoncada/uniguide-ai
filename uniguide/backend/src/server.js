@@ -124,7 +124,7 @@ async function responderPregunta({ pregunta, origen, tokenSesion, telegramChatId
   }
 
   const contexto = formatearContexto(fragmentos);                      // RS 2.2
-  const { texto: respuesta, tokens } = await agente.responder({ pregunta: texto, contexto, intencion });
+  const { texto: respuesta, tokens, motor: motorUsado } = await agente.responder({ pregunta: texto, contexto, intencion });
 
   // RF2 / RS 3.1-3.4 Modulo 3: adjuntar mapa si la intencion es de ubicacion.
   const mapa = intencion === 'UBICACION' ? extraerLugar(fragmentos) : null;
@@ -140,7 +140,7 @@ async function responderPregunta({ pregunta, origen, tokenSesion, telegramChatId
     fuentes: fragmentos.map((f) => ({ id: f.id_conocimiento, titulo: f.titulo })),
     tokens,
     ms,
-    motor: agente.nombre,
+    motor: motorUsado,
   };
 }
 
