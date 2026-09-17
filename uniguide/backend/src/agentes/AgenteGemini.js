@@ -42,7 +42,18 @@ class AgenteGemini extends AgenteIA {
       if (!res.ok) throw new Error(`Gemini respondió ${res.status}: ${await res.text()}`);
       const data = await res.json();
       const texto = data?.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') || SIN_INFORMACION;
-      const tokens = data?.usageMetadata?.totalTokenCount || 0;
+
+      // Algunas respuestas de Gemini no incluyen "totalTokenCount" directo;
+      // en ese caso se suman prompt + candidatos (y, si el modelo usó
+      // "thinking", también esos tokens) para no reportar 0 por error.
+      const uso = data?.usageMetadata || {};
+      const tokens = uso.totalTokenCount
+        ?? ((uso.promptTokenCount || 0) + (uso.candidatesTokenCount || 0) + (uso.thoughtsTokenCount || 0));
+
+      if (!tokens) {
+        console.warn('[Gemini] La respuesta no trajo usageMetadata reconocible:', JSON.stringify(uso));
+      }
+
       return { texto: texto.trim(), tokens };
     } finally {
       clearTimeout(timeout);
