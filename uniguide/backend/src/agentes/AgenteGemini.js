@@ -11,7 +11,7 @@ class AgenteGemini extends AgenteIA {
     super();
     this.apiKey = process.env.GEMINI_API_KEY;
     this.modelo = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
-    this.maxTokens = Number(process.env.IA_MAX_TOKENS || 300);
+    this.maxTokens = Number(process.env.IA_MAX_TOKENS || 500);
   }
 
   get nombre() { return `gemini (${this.modelo})`; }
@@ -27,6 +27,11 @@ class AgenteGemini extends AgenteIA {
       generationConfig: {
         temperature: 0.1,           // baja temperatura = menos invencion
         maxOutputTokens: this.maxTokens, // RNF3: limite de tokens por respuesta
+        // gemini-3.x piensa antes de responder por defecto; para una
+        // tarea de recuperar-y-redactar (no razonamiento complejo) eso
+        // solo consume presupuesto de tokens sin necesidad. "low" deja
+        // el presupuesto para la respuesta visible, no para el pensamiento.
+        thinkingConfig: { thinkingLevel: 'low' },
       },
     };
 
