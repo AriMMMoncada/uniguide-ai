@@ -38,10 +38,12 @@ function crearAgenteConRespaldo() {
     get nombre() { return principal.nombre; },
     async responder(params) {
       try {
-        return await principal.responder(params);
+        const resultado = await principal.responder(params);
+        return { ...resultado, motor: principal.nombre };
       } catch (err) {
         console.error(`[AGENTE] ${principal.nombre} falló: ${err.message}. Respaldo: mock.`);
-        return respaldo.responder(params);
+        const resultado = await respaldo.responder(params);
+        return { ...resultado, motor: `${respaldo.nombre} — respaldo automático (${principal.nombre} falló)` };
       }
     },
   };
