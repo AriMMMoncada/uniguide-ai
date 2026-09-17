@@ -51,6 +51,42 @@ function iconoBot() {
     '<circle cx="12" cy="12" r="3"></circle><path d="M12 2v4M12 18v4M2 12h4M18 12h4"></path></svg>';
 }
 
+const prefiereMenosMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Efecto "máquina de escribir" para las respuestas del bot — imita
+   una terminal imprimiendo su salida. No retrasa la respuesta real:
+   el texto ya llegó completo del backend, esto solo controla cómo
+   se REVELA en pantalla, con una duración total acotada (nunca más
+   de ~700ms sin importar qué tan largo sea el texto). */
+function revelarTexto(elemento, texto) {
+  if (prefiereMenosMovimiento || texto.length < 2) {
+    elemento.textContent = texto;
+    return;
+  }
+
+  const DURACION_MS = Math.min(700, 220 + texto.length * 6);
+  const pasos = texto.length;
+  const intervalo = DURACION_MS / pasos;
+
+  const cursor = document.createElement('span');
+  cursor.className = 'escribiendo-cursor';
+
+  let i = 0;
+  elemento.textContent = '';
+  elemento.appendChild(cursor);
+
+  const timer = setInterval(() => {
+    i++;
+    elemento.textContent = texto.slice(0, i);
+    elemento.appendChild(cursor);
+    bajarChat();
+    if (i >= pasos) {
+      clearInterval(timer);
+      cursor.remove();
+    }
+  }, intervalo);
+}
+
 function crearBurbuja({ texto, esUsuario, mapa, fuentes }) {
   const mensaje = document.createElement('div');
   mensaje.className = 'message ' + (esUsuario ? 'user-message' : 'bot-message');
@@ -67,8 +103,13 @@ function crearBurbuja({ texto, esUsuario, mapa, fuentes }) {
 
   const burbuja = document.createElement('div');
   burbuja.className = 'message-bubble';
-  burbuja.textContent = texto;
   contenedor.appendChild(burbuja);
+
+  if (esUsuario) {
+    burbuja.textContent = texto;
+  } else {
+    revelarTexto(burbuja, texto);
+  }
 
   if (mapa && mapa.embed) {
     const caja = document.createElement('div');
